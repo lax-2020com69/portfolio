@@ -1,0 +1,146 @@
+/* === Navbar Base === */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #000;
+  color: white;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* === Container === */
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* === Logo (Green Theme) === */
+.navbar-logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4caf50; /* primary green */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  user-select: none;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar-logo:hover {
+  color: #43a047; /* darker green on hover */
+  transform: scale(1.05);
+}
+
+.navbar-logo:active {
+  color: #388e3c; /* even deeper green on click */
+  transform: scale(0.95);
+}
+
+
+/* === Hamburger Icon (Mobile) === */
+.menu-icon {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+/* === Nav Menu === */
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+/* === Nav Links === */
+.nav-menu li button.nav-links {
+  background: none;
+  border: none;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.nav-menu li button.nav-links:hover,
+.nav-menu li button.nav-links:focus {
+  color: #4caf50;
+  outline: none;
+  /*text-decoration: underline;*/
+  transform: translateY(-2px);
+}
+
+/* Optional: Highlight active link */
+.nav-menu li button.nav-links.active {
+  color: #4caf50;
+  text-decoration: underline;
+}
+
+/* === Mobile Menu (Dropdown) === */
+.nav-menu.active {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  background-color: #000;
+  padding: 1rem 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-menu.active li {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+/* === Reset anchor defaults === */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* === Responsive Styles === */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+}

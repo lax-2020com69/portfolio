@@ -1,0 +1,36 @@
+/* Reset and base styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+  background-image: url('https://images.unsplash.com/photo-1636955840493-f43a02bfa064?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHVpfGVufDB8fDR8fHww');
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.app {
+  min-height: 100vh;
+  padding-top: 80px; /* Offset for fixed navbar */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Main content spacing */
+main {
+  padding: 2rem;
+}
+
+/* Section styling */
+section {
+  margin-bottom: 4rem;
+}
+
+/* Responsive utility */
+@media (max-width: 768px) {
+  main {
+    padding: 1.5rem 1rem;
+  }
+}

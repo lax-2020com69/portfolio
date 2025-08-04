@@ -1,0 +1,89 @@
+.skills {
+  max-width: 900px;
+  margin: 4rem auto;
+  padding: 0 1rem;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.skills h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  transition: color 0.3s ease;
+}
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.skill-item {
+  width: 120px;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #f9f9f9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+  cursor: default;
+}
+
+.skill-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.skill-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.skill-item p {
+  margin: 0;
+  font-weight: 600;
+  color: #222;
+  transition: color 0.3s ease;
+}
+
+/* Light Mode */
+.app.light .skills {
+  color: #333;
+  background-color: transparent;
+}
+
+.app.light .skills h2 {
+  color: #4caf50;
+}
+
+.app.light .skill-item {
+  background: #f9f9f9;
+}
+
+.app.light .skill-item p {
+  color: #222;
+}
+
+/* Dark Mode */
+.app.dark .skills {
+  color: #eee;
+  background-color: transparent;
+}
+
+.app.dark .skills h2 {
+  color: #8bc34a;
+}
+
+.app.dark .skill-item {
+  background: #2b2b2b;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+.app.dark .skill-item p {
+  color: #ddd;
+}

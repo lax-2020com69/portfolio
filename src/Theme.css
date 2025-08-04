@@ -1,0 +1,21 @@
+/* === Theme Styles Using CSS Variables === */
+
+:root {
+  --bg-light: #f9fafb;
+  --text-light: #1a1a1a;
+
+  --bg-dark: #121212;
+  --text-dark: #e0e0e0;
+}
+
+/* Light Mode */
+.app.light {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+/* Dark Mode */
+.app.dark {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
