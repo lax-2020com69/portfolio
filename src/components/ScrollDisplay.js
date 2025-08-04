@@ -13,35 +13,19 @@ function ScrollDisplay() {
 
       const scrolled = (scrollTop / scrollHeight) * 100;
       setScrollPercent(scrolled);
-
-      // Show scroll-to-top button after scrolling 100px
       setShowScrollTop(scrollTop > 100);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Initial check
+    // Run once on mount
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-
-    // After scroll animation, update scroll position
-    setTimeout(() => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const scrollHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-
-      const scrolled = (scrollTop / scrollHeight) * 100;
-      setScrollPercent(scrolled);
-      setShowScrollTop(scrollTop > 100);
-    }, 400); // Wait for smooth scroll to finish
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -98,9 +82,9 @@ function ScrollDisplay() {
             justifyContent: hovered ? "space-around" : "center",
             padding: hovered ? "0 12px" : 0,
             zIndex: 10000,
-            opacity: hovered ? 1 : 0.5,
+            opacity: 1,
             transition:
-              "width 0.3s ease, border-radius 0.3s ease, opacity 0.3s ease, padding 0.3s ease",
+              "width 0.3s ease, border-radius 0.3s ease, padding 0.3s ease",
             overflow: "hidden",
             whiteSpace: "nowrap",
           }}
