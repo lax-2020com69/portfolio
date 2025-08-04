@@ -20,7 +20,7 @@ function ScrollDisplay() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Initial update
+    // Initial check
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -31,10 +31,22 @@ function ScrollDisplay() {
       top: 0,
       behavior: "smooth",
     });
+
+    // After scroll animation, update scroll position
+    setTimeout(() => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const scrolled = (scrollTop / scrollHeight) * 100;
+      setScrollPercent(scrolled);
+      setShowScrollTop(scrollTop > 100);
+    }, 400); // Wait for smooth scroll to finish
   };
 
   return (
     <>
+      {/* Scroll Progress Bar */}
       <div
         aria-label="Page scroll progress"
         role="progressbar"
@@ -55,12 +67,13 @@ function ScrollDisplay() {
           style={{
             width: `${scrollPercent}%`,
             height: "100%",
-            backgroundColor: "#4caf50", // green bar color
+            backgroundColor: "#4caf50",
             transition: "width 0.2s ease-out",
           }}
         />
       </div>
 
+      {/* Scroll to Top Button */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
@@ -92,7 +105,7 @@ function ScrollDisplay() {
             whiteSpace: "nowrap",
           }}
         >
-          {/* Up arrow SVG */}
+          {/* Up arrow icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -109,7 +122,7 @@ function ScrollDisplay() {
             <polyline points="18 15 12 9 6 15" />
           </svg>
 
-          {/* Label shown only on hover */}
+          {/* Label on hover */}
           {hovered && (
             <span
               style={{
