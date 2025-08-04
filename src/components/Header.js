@@ -11,7 +11,7 @@ function Header({ darkMode }) {
 
           {/* Link to CV in public folder */}
           <a
-            href="/cv/my-fcv.html"
+            href={`${process.env.PUBLIC_URL}/cv/my-fcv.html`}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open Laxman's CV in a new tab"
