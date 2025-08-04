@@ -4,6 +4,18 @@ function ScrollDisplay() {
   const [scrollPercent, setScrollPercent] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,8 +29,6 @@ function ScrollDisplay() {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-
-    // Run once on mount
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -62,25 +72,26 @@ function ScrollDisplay() {
         <button
           onClick={scrollToTop}
           aria-label="Scroll to top"
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
+          onMouseEnter={() => !isMobile && setHovered(true)}
+          onMouseLeave={() => !isMobile && setHovered(false)}
           style={{
             position: "fixed",
-            bottom: 85,
-            right: 30,
+            bottom: isMobile ? 20 : 85,
+            right: isMobile ? 20 : 30,
             backgroundColor: "#4caf50",
             border: "none",
-            borderRadius: hovered ? "24px" : "50%",
-            width: hovered ? 140 : 48,
-            height: 48,
+            borderRadius: hovered && !isMobile ? "24px" : "50%",
+            width: hovered && !isMobile ? 140 : isMobile ? 44 : 48,
+            height: isMobile ? 44 : 48,
             cursor: "pointer",
             boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
             color: "white",
             fontSize: 24,
             display: "flex",
             alignItems: "center",
-            justifyContent: hovered ? "space-around" : "center",
-            padding: hovered ? "0 12px" : 0,
+            justifyContent:
+              hovered && !isMobile ? "space-around" : "center",
+            padding: hovered && !isMobile ? "0 12px" : 0,
             zIndex: 10000,
             opacity: 1,
             transition:
@@ -106,8 +117,8 @@ function ScrollDisplay() {
             <polyline points="18 15 12 9 6 15" />
           </svg>
 
-          {/* Label on hover */}
-          {hovered && (
+          {/* Label on hover (Desktop only) */}
+          {hovered && !isMobile && (
             <span
               style={{
                 fontSize: 14,
