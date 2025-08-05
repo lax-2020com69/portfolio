@@ -3,44 +3,36 @@ import React, { useState, useEffect } from "react";
 function ScrollDisplay() {
   const [scrollPercent, setScrollPercent] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    handleResize(); // Initial check
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const scrollHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
 
       const scrolled = (scrollTop / scrollHeight) * 100;
       setScrollPercent(scrolled);
+
+      // Show scroll-to-top button after scrolling 100px
       setShowScrollTop(scrollTop > 100);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Initial update
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
     <>
-      {/* Scroll Progress Bar */}
       <div
         aria-label="Page scroll progress"
         role="progressbar"
@@ -61,46 +53,46 @@ function ScrollDisplay() {
           style={{
             width: `${scrollPercent}%`,
             height: "100%",
-            backgroundColor: "#4caf50",
+            backgroundColor: "#4caf50", // green bar color
             transition: "width 0.2s ease-out",
           }}
         />
       </div>
 
-      {/* Scroll to Top Button */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
           aria-label="Scroll to top"
-          onMouseEnter={() => !isMobile && setHovered(true)}
-          onMouseLeave={() => !isMobile && setHovered(false)}
           style={{
             position: "fixed",
-            bottom: isMobile ? 20 : 85,
-            right: isMobile ? 20 : 30,
+            bottom: 85,
+            right: 30,
             backgroundColor: "#4caf50",
             border: "none",
-            borderRadius: hovered && !isMobile ? "24px" : "50%",
-            width: hovered && !isMobile ? 140 : isMobile ? 44 : 48,
-            height: isMobile ? 44 : 48,
+            borderRadius: "50%",
+            width: 48,
+            height: 48,
             cursor: "pointer",
             boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
             color: "white",
             fontSize: 24,
             display: "flex",
             alignItems: "center",
-            justifyContent:
-              hovered && !isMobile ? "space-around" : "center",
-            padding: hovered && !isMobile ? "0 12px" : 0,
+            justifyContent: "center",
             zIndex: 10000,
-            opacity: 1,
-            transition:
-              "width 0.3s ease, border-radius 0.3s ease, padding 0.3s ease",
-            overflow: "hidden",
-            whiteSpace: "nowrap",
+            opacity: 0.5,
+            transition: "background-color 0.3s ease, opacity 0.3s ease",
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.backgroundColor = "#388e3c";
+            e.currentTarget.style.opacity = "1";
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.backgroundColor = "#4caf50";
+            e.currentTarget.style.opacity = "0.5";
           }}
         >
-          {/* Up arrow icon */}
+          {/* Up arrow SVG */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -116,20 +108,6 @@ function ScrollDisplay() {
           >
             <polyline points="18 15 12 9 6 15" />
           </svg>
-
-          {/* Label on hover (Desktop only) */}
-          {hovered && !isMobile && (
-            <span
-              style={{
-                fontSize: 14,
-                fontWeight: "bold",
-                userSelect: "none",
-                color: "white",
-              }}
-            >
-              Scroll to top
-            </span>
-          )}
         </button>
       )}
     </>
